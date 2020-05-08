@@ -1,4 +1,4 @@
-package algorithmConcepts.orderingMethods;
+package algorithmConcepts.orderandsearch;
 
 import java.util.List;
 
@@ -57,9 +57,9 @@ public class OrderingMethods {
 	 */
 	public static List<Integer> orderingByBubble(List<Integer> numbersToOrder){
 		for (int i = 0; i < numbersToOrder.size() - 1; i++) {
-			for (int j = 0; j < numbersToOrder.size()-i; j++) {
+			for (int j = 0; j < (numbersToOrder.size() - 1) - i; j++) {
 				if (numbersToOrder.get(j) > numbersToOrder.get(j + 1)) {
-					changeValuesByPosition(i, j + 1, numbersToOrder);
+					changeValuesByPosition(j, j + 1, numbersToOrder);
 				}
 			}
 		}
@@ -75,9 +75,9 @@ public class OrderingMethods {
 		int changed;
 		for (int i = 0; i < numbersToOrder.size() - 1; i++) {
 			changed = 0;
-			for (int j = 0; j < numbersToOrder.size()-i; j++) {
+			for (int j = 0; j < (numbersToOrder.size() - 1 ) - i; j++) {
 				if (numbersToOrder.get(j) > numbersToOrder.get(j + 1)) {
-					changeValuesByPosition(i, j + 1, numbersToOrder);
+					changeValuesByPosition(j, j + 1, numbersToOrder);
 					changed = 1;
 				}
 			}
