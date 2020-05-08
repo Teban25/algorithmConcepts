@@ -72,16 +72,16 @@ public class OrderingMethods {
 	 * @return
 	 */
 	public static List<Integer> orderingByBubbleBetter(List<Integer> numbersToOrder){
-		int cambio;
+		int changed;
 		for (int i = 0; i < numbersToOrder.size() - 1; i++) {
-			cambio = 0;
+			changed = 0;
 			for (int j = 0; j < numbersToOrder.size()-i; j++) {
 				if (numbersToOrder.get(j) > numbersToOrder.get(j + 1)) {
 					changeValuesByPosition(i, j + 1, numbersToOrder);
-					cambio = 1;
+					changed = 1;
 				}
 			}
-			if(cambio == 0) {
+			if(changed == 0) {
 				break;
 			}
 		}
