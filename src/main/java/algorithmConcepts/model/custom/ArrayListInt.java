@@ -44,8 +44,18 @@ public class ArrayListInt {
         return elements[index];
     }
 
+    /**
+     * Algorithm Complex: O(n)
+     * @param value, the element to search in the array
+     * @return index of value found, otherwise -1
+     */
     public int search(int value) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if (elements[i] == value) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void remove(int index) {
