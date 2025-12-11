@@ -35,9 +35,10 @@ public class ArrayListIntTest {
     }
 
     @Test
-    public void searchElementTraditionalApproach() {
+    public void severalCommandsInTraditionalApproaches() {
         // GIVEN
         ArrayListInt list = new ArrayListInt();
+        ArrayListInt emptyList = new ArrayListInt();
         // WHEN
         list.add(2);
         list.add(10);
@@ -46,7 +47,15 @@ public class ArrayListIntTest {
         list.add(11);
         list.add(9);
         // THEN
+        list.print();
         assertEquals(4, list.search(11));
         assertEquals(-1, list.search(1));
+        assertEquals(64, list.sum());
+        assertEquals(-1, emptyList.max());
+        assertEquals(-1, emptyList.min());
+        assertEquals(25, list.get(list.max()));
+        assertEquals(2, list.get(list.min()));
+        list.swap(1, 4);
+        assertEquals(10, list.get(4));
     }
 }

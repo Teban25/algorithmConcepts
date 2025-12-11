@@ -44,6 +44,12 @@ public class ArrayListInt {
         return elements[index];
     }
 
+    public void print() {
+        for (int i = 0; i < size; i++) {
+            System.out.print(elements[i] + " ");
+        }
+        System.out.println();
+    }
     /**
      * Algorithm Complex: O(n)
      * @param value, the element to search in the array
@@ -56,6 +62,46 @@ public class ArrayListInt {
             }
         }
         return -1;
+    }
+
+    public int sum() {
+        int sum = 0;
+        for (int i = 0; i < size; i++) {
+            sum += elements[i];
+        }
+        return sum;
+    }
+
+    public int max() {
+        int max = -1;
+        if (size > 0) {
+            max = 0;
+            for (int i = 1; i < size; i++) {
+                if (elements[i] > elements[max]) {
+                    max = i;
+                }
+            }
+        }
+        return max;
+    }
+
+    public int min() {
+        int min = -1;
+        if (size > 0) {
+            min = 0;
+            for (int i = 1; i < size; i++) {
+                if (elements[i] < elements[min]) {
+                    min = i;
+                }
+            }
+        }
+        return min;
+    }
+
+    public void swap(int index1, int index2) {
+        int aux = elements[index1];
+        elements[index1] = elements[index2];
+        elements[index2] = aux;
     }
 
     public void remove(int index) {
