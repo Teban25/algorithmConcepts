@@ -4,10 +4,18 @@ public class ArrayListInt {
 
     private int[] elements;
     private int size;
+    private final boolean isSorted;
 
     public ArrayListInt() {
         elements = new int[10];
         size = 0;
+        isSorted = false;
+    }
+
+    public ArrayListInt(boolean isSorted) {
+        elements = new int[10];
+        size = 0;
+        this.isSorted = isSorted;
     }
 
     public ArrayListInt(int initialCapacity) {
@@ -17,6 +25,17 @@ public class ArrayListInt {
             elements = new int[100000];
         }
         size = 0;
+        isSorted = false;
+    }
+
+    public ArrayListInt(int initialCapacity, boolean isSorted) {
+        if (initialCapacity < 100000) {
+            elements = new int[initialCapacity];
+        } else {
+            elements = new int[100000];
+        }
+        size = 0;
+        this.isSorted = isSorted;
     }
 
     /*
@@ -29,12 +48,47 @@ public class ArrayListInt {
     }
 
     public void add(int element) {
+        if (isSorted) {
+            addSorted(element);
+        } else {
+            addUnsorted(element);
+        }
+    }
+
+    private void addSorted(int element) {
         if (size == elements.length) {
-            int[] aux = elements;
-            elements = new int[elements.length * 2];
-            System.arraycopy(aux, 0, elements, 0, size);
+            incrementCapacity();
+        }
+        // Find the position to insert the new element in a sorted way
+        int indexToAdd = size;
+
+        for (int i = 0; i < size; i++) {
+            if (element < elements[i]) {
+                indexToAdd = i;
+                break;
+            }
+        }
+
+        // Re-structure the array to move the elements after the new insertion
+        for (int i = size; i > indexToAdd; i--) {
+            elements[i] = elements[i - 1];
+        }
+
+        elements[indexToAdd] = element;
+        size++;
+    }
+
+    private void addUnsorted(int element) {
+        if (size == elements.length) {
+            incrementCapacity();
         }
         elements[size++] = element;
+    }
+
+    public void incrementCapacity() {
+        int[] aux = elements;
+        elements = new int[elements.length * 2];
+        System.arraycopy(aux, 0, elements, 0, size);
     }
 
     public int get(int index) {
@@ -106,5 +160,17 @@ public class ArrayListInt {
 
     public void remove(int index) {
 
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            if (i > 0) {
+                sb.append(",");
+            }
+            sb.append(elements[i]);
+        }
+        return sb.toString();
     }
 }

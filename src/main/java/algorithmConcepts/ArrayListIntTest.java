@@ -58,4 +58,26 @@ public class ArrayListIntTest {
         list.swap(1, 4);
         assertEquals(10, list.get(4));
     }
+
+    @Test
+    public void testThatCheckUnsortedAndSortedArrays() {
+        // GIVEN
+        ArrayListInt unsortedList = new ArrayListInt();
+        ArrayListInt sortedList = new ArrayListInt(true);
+        // WHEN
+        unsortedList.add(10);
+        unsortedList.add(3);
+        unsortedList.add(5);
+        unsortedList.add(2);
+
+        sortedList.add(10);
+        sortedList.add(3);
+        sortedList.add(5);
+        sortedList.add(2);
+        sortedList.add(7);
+        // THEN
+        assertEquals(4, unsortedList.size());
+        assertEquals("10,3,5,2", unsortedList.toString());
+        assertEquals("2,3,5,7,10", sortedList.toString());
+    }
 }
