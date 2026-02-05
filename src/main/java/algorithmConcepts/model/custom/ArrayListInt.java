@@ -110,12 +110,11 @@ public class ArrayListInt {
      * @return index of value found, otherwise -1
      */
     public int search(int value) {
-        for (int i = 0; i < size; i++) {
-            if (elements[i] == value) {
-                return i;
-            }
+        int i = 0;
+        while(i < size && elements[i] != value) {
+            i = i + 1;
         }
-        return -1;
+        return i == size ? -1 : i;
     }
 
     public int sum() {
@@ -153,13 +152,75 @@ public class ArrayListInt {
     }
 
     public void swap(int index1, int index2) {
-        int aux = elements[index1];
-        elements[index1] = elements[index2];
-        elements[index2] = aux;
+        try {
+            if (index1 >= size || index2 >= size) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+
+            int aux = elements[index1];
+            elements[index1] = elements[index2];
+            elements[index2] = aux;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.printf("ArrayIndexOutOfBoundsException: " +
+                    "The indexes are out of bounds, please verify - Index1=%d; Index2=%d, but size=%d", index1, index2, size);
+        }
     }
 
     public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException(index);
+        }
 
+        for(int j = index; j < size - 1; j++) {
+            elements[j] = elements[j + 1];
+        }
+        elements[size - 1] = 0;
+        size--;
+    }
+
+    public void deleteOccurrencesOfD(int d) {
+        int writeIndex = 0;
+        for (int readIndex = 0; readIndex < size; readIndex++) {
+            if (!(elements[readIndex] == d)) {
+                elements[writeIndex++] = elements[readIndex];
+            }
+        }
+        // Set the rest to null (optional, for clarity)
+        int numberOfDeletedElements = size - writeIndex;
+        while (writeIndex < size) {
+            elements[writeIndex++] = 0;
+        }
+        size = size - numberOfDeletedElements;
+    }
+
+    public void deleteAllRepeatedElementsInSortedArrayUsingExtraSpace() {
+        int[] auxElements = new int[elements.length];
+        int indexForAux = 0;
+        int sizeUpdated = 0;
+        for (int i = 0; i < size - 1; i++) {
+            if (elements[i + 1] != elements[i]) {
+                auxElements[indexForAux] = elements[i];
+                indexForAux++;
+                sizeUpdated++;
+            }
+        }
+        auxElements[indexForAux] = elements[size - 1];
+        sizeUpdated++;
+        elements = auxElements;
+        size = sizeUpdated;
+    }
+
+    public void deleteAllRepeatedElements() {
+        int writeIndex = 0;
+        for (int i = 0; i < size; i++) {
+            if ((i  == size - 1) || (elements[i] != elements[i + 1])) {
+                elements[writeIndex++] = elements[i];
+            }
+        }
+        for (int i = writeIndex + 1; i < size; i++) {
+            elements[i] = 0;
+        }
+        size = writeIndex;
     }
 
     @Override

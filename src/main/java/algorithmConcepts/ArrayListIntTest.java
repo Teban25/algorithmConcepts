@@ -55,8 +55,11 @@ public class ArrayListIntTest {
         assertEquals(-1, emptyList.min());
         assertEquals(25, list.get(list.max()));
         assertEquals(2, list.get(list.min()));
-        list.swap(1, 4);
+        list.swap(1,4);
+        list.swap(7,8);
         assertEquals(10, list.get(4));
+        list.remove(5);
+        assertEquals(5, list.size());
     }
 
     @Test
@@ -79,5 +82,51 @@ public class ArrayListIntTest {
         assertEquals(4, unsortedList.size());
         assertEquals("10,3,5,2", unsortedList.toString());
         assertEquals("2,3,5,7,10", sortedList.toString());
+    }
+
+    @Test
+    public void testThatDeleteOccurrencesOfD() {
+        ArrayListInt list = new ArrayListInt();
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(5);
+        list.add(7);
+        list.add(8);
+        list.add(3);
+        list.add(4);
+        list.deleteOccurrencesOfD(3);
+        assertEquals("2,5,7,8,4", list.toString());
+    }
+
+    @Test
+    public void testThatDeleteRepeatedElementsUsingExtraSpace() {
+        ArrayListInt list = new ArrayListInt(true);
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(5);
+        list.add(7);
+        list.add(8);
+        list.add(3);
+        list.add(4);
+        list.deleteAllRepeatedElementsInSortedArrayUsingExtraSpace();
+        assertEquals("2,3,4,5,7,8", list.toString());
+    }
+
+    @Test
+    public void testThatDeleteRepeatedElements() {
+        ArrayListInt list = new ArrayListInt(true);
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(3);
+        list.add(5);
+        list.add(7);
+        list.add(8);
+        list.add(3);
+        list.add(4);
+        list.deleteAllRepeatedElements();
+        assertEquals("2,3,4,5,7,8", list.toString());
     }
 }
