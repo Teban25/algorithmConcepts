@@ -2,27 +2,27 @@ package algorithmConcepts.model.custom;
 
 public class ArrayListInt {
 
-    private int[] elements;
+    private Integer[] elements;
     private int size;
     private final boolean isSorted;
 
     public ArrayListInt() {
-        elements = new int[10];
+        elements = new Integer[10];
         size = 0;
         isSorted = false;
     }
 
     public ArrayListInt(boolean isSorted) {
-        elements = new int[10];
+        elements = new Integer[10];
         size = 0;
         this.isSorted = isSorted;
     }
 
     public ArrayListInt(int initialCapacity) {
         if (initialCapacity < 100000) {
-            elements = new int[initialCapacity];
+            elements = new Integer[initialCapacity];
         } else {
-            elements = new int[100000];
+            elements = new Integer[100000];
         }
         size = 0;
         isSorted = false;
@@ -30,9 +30,9 @@ public class ArrayListInt {
 
     public ArrayListInt(int initialCapacity, boolean isSorted) {
         if (initialCapacity < 100000) {
-            elements = new int[initialCapacity];
+            elements = new Integer[initialCapacity];
         } else {
-            elements = new int[100000];
+            elements = new Integer[100000];
         }
         size = 0;
         this.isSorted = isSorted;
@@ -47,6 +47,12 @@ public class ArrayListInt {
         return size;
     }
 
+    private void checkCapacity() {
+        if (size == elements.length) {
+            incrementCapacity();
+        }
+    }
+
     public void add(int element) {
         if (isSorted) {
             addSorted(element);
@@ -56,9 +62,7 @@ public class ArrayListInt {
     }
 
     private void addSorted(int element) {
-        if (size == elements.length) {
-            incrementCapacity();
-        }
+        checkCapacity();
         // Find the position to insert the new element in a sorted way
         int indexToAdd = size;
 
@@ -79,15 +83,25 @@ public class ArrayListInt {
     }
 
     private void addUnsorted(int element) {
-        if (size == elements.length) {
-            incrementCapacity();
-        }
+        checkCapacity();
         elements[size++] = element;
     }
 
+    public void insert(int index, int data) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ", Insertion out of bounds!");
+        }
+        checkCapacity();
+        for (int i = size; i > index; i--) {
+            elements[i] = elements[i - 1];
+        }
+        elements[index] = data;
+        size++;
+    }
+
     public void incrementCapacity() {
-        int[] aux = elements;
-        elements = new int[elements.length * 2];
+        Integer[] aux = elements;
+        elements = new Integer[elements.length * 2];
         System.arraycopy(aux, 0, elements, 0, size);
     }
 
@@ -99,6 +113,7 @@ public class ArrayListInt {
     }
 
     public void print() {
+        System.out.println("ArrayList Elements:");
         for (int i = 0; i < size; i++) {
             System.out.print(elements[i] + " ");
         }
@@ -110,11 +125,11 @@ public class ArrayListInt {
      * @return index of value found, otherwise -1
      */
     public int search(int value) {
-        int i = 0;
-        while(i < size && elements[i] != value) {
-            i = i + 1;
+        int indexFound = 0;
+        while(indexFound < size && elements[indexFound] != value) {
+            indexFound = indexFound + 1;
         }
-        return i == size ? -1 : i;
+        return indexFound == size ? -1 : indexFound;
     }
 
     public int sum() {
@@ -194,11 +209,11 @@ public class ArrayListInt {
     }
 
     public void deleteAllRepeatedElementsInSortedArrayUsingExtraSpace() {
-        int[] auxElements = new int[elements.length];
+        Integer[] auxElements = new Integer[elements.length];
         int indexForAux = 0;
         int sizeUpdated = 0;
         for (int i = 0; i < size - 1; i++) {
-            if (elements[i + 1] != elements[i]) {
+            if (!elements[i + 1].equals(elements[i])) {
                 auxElements[indexForAux] = elements[i];
                 indexForAux++;
                 sizeUpdated++;
@@ -213,7 +228,7 @@ public class ArrayListInt {
     public void deleteAllRepeatedElements() {
         int writeIndex = 0;
         for (int i = 0; i < size; i++) {
-            if ((i  == size - 1) || (elements[i] != elements[i + 1])) {
+            if ((i  == size - 1) || (!elements[i].equals(elements[i + 1]))) {
                 elements[writeIndex++] = elements[i];
             }
         }
@@ -221,6 +236,10 @@ public class ArrayListInt {
             elements[i] = 0;
         }
         size = writeIndex;
+    }
+
+    public void sortBySelection() {
+
     }
 
     @Override

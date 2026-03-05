@@ -1,12 +1,13 @@
 package algorithmConcepts;
 
 import algorithmConcepts.model.custom.ArrayListInt;
+import algorithmConcepts.model.custom.LinkedListInt;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ArrayListIntTest {
+public class ListIntTest {
 
 
     @Test
@@ -39,6 +40,7 @@ public class ArrayListIntTest {
         // GIVEN
         ArrayListInt list = new ArrayListInt();
         ArrayListInt emptyList = new ArrayListInt();
+        LinkedListInt linkedList1 = new LinkedListInt();
         // WHEN
         list.add(2);
         list.add(10);
@@ -46,11 +48,22 @@ public class ArrayListIntTest {
         list.add(7);
         list.add(11);
         list.add(9);
+        list.insert(2, 3);
+
+        linkedList1.add(2);
+        linkedList1.add(10);
+        linkedList1.add(25);
+        linkedList1.add(7);
+        linkedList1.add(11);
+        linkedList1.add(9);
+        linkedList1.insert(2, 3);
         // THEN
         list.print();
-        assertEquals(4, list.search(11));
+        linkedList1.print();
+        assertEquals(7, linkedList1.size());
+        assertEquals(5, list.search(11));
         assertEquals(-1, list.search(1));
-        assertEquals(64, list.sum());
+        assertEquals(67, list.sum());
         assertEquals(-1, emptyList.max());
         assertEquals(-1, emptyList.min());
         assertEquals(25, list.get(list.max()));
@@ -59,7 +72,7 @@ public class ArrayListIntTest {
         list.swap(7,8);
         assertEquals(10, list.get(4));
         list.remove(5);
-        assertEquals(5, list.size());
+        assertEquals(6, list.size());
     }
 
     @Test
@@ -128,5 +141,95 @@ public class ArrayListIntTest {
         list.add(4);
         list.deleteAllRepeatedElements();
         assertEquals("2,3,4,5,7,8", list.toString());
+    }
+
+    @Test
+    public void testLinkedLists() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(2);
+        linkedList1.add(3);
+        linkedList1.add(4);
+
+        linkedList1.insert(0,5);
+        linkedList1.insert(2,7);
+        linkedList1.insert(11,10);
+        linkedList1.print();
+        assertEquals(6, linkedList1.size());
+        System.out.println(linkedList1);
+    }
+
+    @Test
+    public void testLinkedListMethods() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(2);
+        linkedList1.add(10);
+        linkedList1.add(25);
+        linkedList1.add(7);
+        linkedList1.add(11);
+        linkedList1.add(9);
+        LinkedListInt linkedList2 = new LinkedListInt(true);
+        linkedList2.add(25);
+        linkedList2.add(7);
+        linkedList2.add(11);
+        linkedList2.add(9);
+        linkedList2.add(24);
+        linkedList2.add(28);
+
+        assertEquals(3, linkedList1.search(7));
+        assertEquals(-1, linkedList1.search(201));
+        assertEquals(64, linkedList1.sum());
+        assertEquals(6, linkedList2.size());
+        linkedList2.print();
+        assertEquals(1, linkedList2.search(9));
+        assertEquals(0, linkedList2.search(7));
+    }
+
+    @Test
+    public void testToRemoveElements1() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(2);
+        linkedList1.add(5);
+        linkedList1.add(20);
+        linkedList1.add(8);
+
+        linkedList1.remove(2);
+        linkedList1.print();
+    }
+
+    @Test
+    public void testToRemoveElements2() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(2);
+        linkedList1.add(5);
+        linkedList1.add(20);
+        linkedList1.add(8);
+
+        linkedList1.remove(0);
+        linkedList1.print();
+    }
+
+    @Test
+    public void testToRemoveElements3() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(2);
+        linkedList1.add(5);
+        linkedList1.add(20);
+        linkedList1.add(8);
+
+        linkedList1.remove(3);
+        linkedList1.print();
+    }
+
+    @Test
+    public void testToRemoveElements4() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(2);
+
+        linkedList1.remove(0);
+        linkedList1.print();
+        linkedList1.add(5);
+        linkedList1.add(20);
+        linkedList1.add(8);
+        linkedList1.print();
     }
 }
