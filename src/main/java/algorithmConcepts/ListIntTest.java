@@ -232,4 +232,36 @@ public class ListIntTest {
         linkedList1.add(8);
         linkedList1.print();
     }
+
+    @Test
+    public void testToRemoveOccurrencesOfDInLinkedList() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(3);
+        linkedList1.add(8);
+        linkedList1.add(3);
+        linkedList1.add(5);
+        linkedList1.add(6);
+        linkedList1.add(3);
+
+        linkedList1.print();
+
+        linkedList1.deleteOccurrencesOfD(3);
+        linkedList1.print();
+        assertEquals(3, linkedList1.size());
+    }
+
+    @Test
+    public void testSwapNodesLinkedList() {
+        LinkedListInt linkedList1 = new LinkedListInt();
+        linkedList1.add(3);
+        linkedList1.add(8);
+        linkedList1.add(3);
+        linkedList1.add(5);
+        linkedList1.add(6);
+        linkedList1.add(11);
+
+        linkedList1.print();
+        linkedList1.swap(0,5);
+        assertEquals(11, linkedList1.get(0));
+    }
 }
