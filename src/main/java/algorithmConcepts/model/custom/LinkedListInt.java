@@ -199,9 +199,9 @@ public class LinkedListInt {
 
             Node current = head;
             Node previous1 = null;
-            Node previous2 = head;
+            Node previous2 = null;
             Node nodeIndex1 = current;
-            Node nodeIndex2 = tail;
+            Node nodeIndex2 = current;
             int currentIndex = 0;
 
             while(current != null && currentIndex < index1) {
@@ -225,31 +225,40 @@ public class LinkedListInt {
                   tail = nodeIndex1;
                   head = nodeIndex2;
               } else {
-                  previous2.next = nodeIndex1;
-                  nodeIndex2.next = nodeIndex1.next;
-                  nodeIndex1.next = null;
+                  if (previous2 != null && nodeIndex2 != null) {
+                      previous2.next = nodeIndex1;
+                      nodeIndex2.next = nodeIndex1.next;
+                      nodeIndex1.next = null;
+                  }
                   head = nodeIndex2;
                   tail = nodeIndex1;
               }
             } else if (nodeIndex1 == head) {
-                previous2.next = head;
-                Node aux = nodeIndex2.next;
-                nodeIndex2.next = head.next;
-                head.next = aux;
-                head = nodeIndex2;
+                if (nodeIndex2 != null && previous2 != null) {
+                    Node aux = nodeIndex2.next;
+                    previous2.next = head;
+                    nodeIndex2.next = head.next;
+                    head.next = aux;
+                    head = nodeIndex2;
+                }
             } else if (nodeIndex2 == tail) {
-                previous2.next = nodeIndex1;
-                Node aux = nodeIndex1.next;
-                nodeIndex1.next = null;
-                previous1.next = tail;
+                Node aux = null;
+                if (nodeIndex1 != null && previous2 != null) {
+                    previous2.next = nodeIndex1;
+                    aux = nodeIndex1.next;
+                    nodeIndex1.next = null;
+                    previous1.next = tail;
+                }
                 tail.next = aux;
                 tail = nodeIndex1;
             } else {
-                previous1.next = nodeIndex2;
-                previous2.next = nodeIndex1;
-                Node aux = nodeIndex2.next;
-                nodeIndex2.next = nodeIndex1.next;
-                nodeIndex1.next = aux;
+                if (nodeIndex2 != null && previous2 != null) {
+                    previous1.next = nodeIndex2;
+                    previous2.next = nodeIndex1;
+                    Node aux = nodeIndex2.next;
+                    nodeIndex2.next = nodeIndex1.next;
+                    nodeIndex1.next = aux;
+                }
             }
         }
     }
