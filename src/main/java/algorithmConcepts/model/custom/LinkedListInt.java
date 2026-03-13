@@ -1,5 +1,7 @@
 package algorithmConcepts.model.custom;
 
+import java.util.Objects;
+
 public class LinkedListInt {
 
     private Node head;
@@ -150,6 +152,118 @@ public class LinkedListInt {
         size--;
     }
 
+    public void deleteOccurrencesOfD(int d){
+        Node current = head;
+        Node previous = null;
+
+        while (current != null ){
+            if(current.data == d ){
+                if(current == head){
+                  head = current.next;
+                  size--;
+                }
+                else if(current == tail){
+                    tail = previous;
+                    tail.next = null;
+                    size--;
+                }
+                else{
+                    previous.next = current.next;
+                    size--;
+                }
+            }
+            previous = current;
+            current = current.next;
+        }
+
+
+
+    }
+
+    public void swap(int index1 , int index2) {
+        if (index1 != index2) {
+
+            if (index1 > index2) {
+                int aux = index1;
+                index1 = index2;
+                index2 = aux;
+            }
+
+            if (index2 >= size) {
+                index2 = size - 1;
+            }
+
+            if (index1 < 0) {
+                index1 = 0;
+            }
+
+            Node current = head;
+            Node previous1 = null;
+            Node previous2 = null;
+            Node nodeIndex1 = current;
+            Node nodeIndex2 = current;
+            int currentIndex = 0;
+
+            while(current != null && currentIndex < index1) {
+                previous1 = current;
+                current = current.next;
+                nodeIndex1 = current;
+                currentIndex++;
+            }
+
+            while(current != null && currentIndex < index2) {
+                previous2 = current;
+                current = current.next;
+                nodeIndex2 = current;
+                currentIndex++;
+            }
+
+            if (nodeIndex1 == head && nodeIndex2 == tail) {
+              if(size == 2) {
+                  tail.next = head;
+                  head.next = null;
+                  tail = nodeIndex1;
+                  head = nodeIndex2;
+              } else {
+                  if (previous2 != null && nodeIndex2 != null) {
+                      previous2.next = nodeIndex1;
+                      nodeIndex2.next = nodeIndex1.next;
+                      nodeIndex1.next = null;
+                  }
+                  head = nodeIndex2;
+                  tail = nodeIndex1;
+              }
+            } else if (nodeIndex1 == head) {
+                if (nodeIndex2 != null && previous2 != null) {
+                    Node aux = nodeIndex2.next;
+                    previous2.next = head;
+                    nodeIndex2.next = head.next;
+                    head.next = aux;
+                    head = nodeIndex2;
+                }
+            } else if (nodeIndex2 == tail) {
+                Node aux = null;
+                if (nodeIndex1 != null && previous2 != null) {
+                    previous2.next = nodeIndex1;
+                    aux = nodeIndex1.next;
+                    nodeIndex1.next = null;
+                    previous1.next = tail;
+                }
+                tail.next = aux;
+                tail = nodeIndex1;
+            } else {
+                if (nodeIndex2 != null && previous2 != null) {
+                    previous1.next = nodeIndex2;
+                    previous2.next = nodeIndex1;
+                    Node aux = nodeIndex2.next;
+                    nodeIndex2.next = nodeIndex1.next;
+                    nodeIndex1.next = aux;
+                }
+            }
+        }
+    }
+
+
     public int sum() {
         int sum = 0;
         Node node = head;
@@ -206,6 +320,18 @@ public class LinkedListInt {
 
         Node(int data) {
             this.data = data;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Node node = (Node) o;
+            return data == node.data && Objects.equals(next, node.next);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(data, next);
         }
     }
 }
