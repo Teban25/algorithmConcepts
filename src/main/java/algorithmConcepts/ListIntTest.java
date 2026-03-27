@@ -291,4 +291,59 @@ public class ListIntTest {
         assertEquals(8, linkedList2.get(0));
         linkedList2.print();
     }
+    @Test
+    public void testSelectionSort() {
+        ArrayListInt list = new ArrayListInt();
+
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(3);
+        list.add(5);
+        list.add(7);
+        list.add(8);
+        list.add(3);
+        list.add(4);
+
+        list.sortBySelection(false);
+        assertEquals("2,3,3,3,3,4,5,7,8", list.toString());
+
+
+    }
+
+    @Test
+    public void testSelectByBubble() {
+        ArrayListInt list = new ArrayListInt();
+
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(3);
+        list.add(5);
+        list.add(7);
+        list.add(8);
+        list.add(3);
+        list.add(4);
+
+        list.sortByBubble();
+        assertEquals("2,3,3,3,3,4,5,7,8" , list.toString());
+
+    }
+    @Test
+    public void sortBySelectionDesc() {
+        ArrayListInt list = new ArrayListInt();
+
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(3);
+        list.add(5);
+        list.add(7);
+        list.add(8);
+        list.add(3);
+        list.add(4);
+
+        list.sortBySelectionDesc();
+        assertEquals("8,7,5,4,3,3,3,3,2" , list.toString());
+    }
 }

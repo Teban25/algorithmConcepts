@@ -227,7 +227,7 @@ public class ArrayListInt {
 
     public void deleteAllRepeatedElements() {
         int writeIndex = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size -1; i++) {
             if ((i  == size - 1) || (!elements[i].equals(elements[i + 1]))) {
                 elements[writeIndex++] = elements[i];
             }
@@ -238,8 +238,58 @@ public class ArrayListInt {
         size = writeIndex;
     }
 
-    public void sortBySelection() {
+    public void sortBySelection(boolean desc) {
+        if(desc) {
+            sortBySelectionDesc();
+        }else {
+            sortBySelectionAsc();
+        }
+    }
 
+    public void sortBySelectionDesc() {
+        for (int i = 0; i < size - 1; i++) {
+            int maxValue = i;
+            for(int j = i + 1; j < size ; j++) {
+                if (elements[j] > elements[maxValue]) {
+                    maxValue = j;
+                }
+            }
+            int aux = elements[maxValue];
+            elements[maxValue] = elements[i];
+            elements[i] = aux;
+        }
+    }
+
+    public void sortBySelectionAsc() {
+        for (int i = 0; i < size - 1; i++) {
+            int minValue = i;
+            for(int j = i + 1; j < size ; j++) {
+                if (elements[j] < elements[minValue]) {
+                    minValue = j;
+                }
+            }
+            int aux = elements[minValue];
+            elements[minValue] = elements[i];
+            elements[i] = aux;
+        }
+    }
+
+    public void sortByBubble() {
+        boolean changed;
+        for (int i = 0; i < size - 1 ; i++) {
+            changed = false;
+            for ( int j = 0; j < size - 1 ; j++) {
+                if (elements[j + 1] < elements[j]) {
+                    int aux = elements[j];
+                    elements[j] = elements[j + 1];
+                    elements[j + 1] = aux;
+                    changed = true;
+                }
+            }
+            if (!changed) {
+                break;
+            }
+        }
     }
 
     @Override
